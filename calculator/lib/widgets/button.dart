@@ -16,7 +16,7 @@ class Button extends StatefulWidget {
 
 class _ButtonState extends State<Button> {
   double depth = 5;
-  double textSize = 55;
+  double textSize = 40;
   bool isEnableBorder = true;
 
   @override
@@ -26,27 +26,27 @@ class _ButtonState extends State<Button> {
         onTapCancel: () {
           setState(() {
             depth = 5;
-            textSize = 55;
+            textSize = 40;
           });
         },
         onTapDown: (e) {
           widget.onClick();
           setState(() {
             depth = -30;
-            textSize = 52;
+            textSize = 38;
           });
         },
         onTapUp: (e) {
           setState(() {
             depth = 5;
-            textSize = 55;
+            textSize = 40;
           });
         },
         child: Neumorphic(
           style: NeumorphicStyle(
             depth: depth,
             intensity: 1,
-            shape: NeumorphicShape.concave,
+            shape: NeumorphicShape.convex,
             surfaceIntensity: 0.5,
             color: Colors.white,
             boxShape: NeumorphicBoxShape.roundRect(
@@ -54,14 +54,14 @@ class _ButtonState extends State<Button> {
             ),
           ),
           padding: EdgeInsets.all(20),
-          duration: Duration(milliseconds: 100),
+          duration: Duration(milliseconds: 50),
           child: Container(
             width: widget.width ?? 40,
             height: widget.height ?? 40,
             alignment: Alignment.center,
             child: widget.icon ??
                 AnimatedDefaultTextStyle(
-                  duration: Duration(milliseconds: 100),
+                  duration: Duration(milliseconds: 50),
                   style: TextStyle(
                     fontSize: textSize,
                     height: 1,

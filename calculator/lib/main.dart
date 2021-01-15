@@ -1,5 +1,6 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:auto_size_text_field/auto_size_text_field.dart';
 import 'package:calculator/widgets/button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,7 @@ class MyCalculator extends StatefulWidget {
 
 class _MyCalculatorState extends State<MyCalculator> {
   final TextEditingController _textFController = TextEditingController();
+  final ScrollController _textFieldScrollController = ScrollController();
   var text = "".obs;
   Soundpool pool = Soundpool(streamType: StreamType.notification);
   int soundId;
@@ -47,37 +49,23 @@ class _MyCalculatorState extends State<MyCalculator> {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
               child: Container(
                 height: 200,
                 child: Column(
                   children: [
-                    AutoSizeTextField(
+                    TextField(
                       readOnly: true,
                       cursorColor: Colors.white,
                       textAlign: TextAlign.end,
+                      scrollController: _textFieldScrollController,
                       controller: _textFController,
                       maxLines: 1,
                       autofocus: true,
-                      presetFontSizes: [
-                        100,
-                        95,
-                        90,
-                        85,
-                        80,
-                        75,
-                        70,
-                        60,
-                        50,
-                        40,
-                      ],
-                      maxFontSize: 100,
-                      minFontSize: 40,
                       style: TextStyle(
-                        fontSize: 100,
+                        fontSize: 80,
                         fontWeight: FontWeight.w200,
                         color: Colors.black,
                       ),
@@ -122,7 +110,6 @@ class _MyCalculatorState extends State<MyCalculator> {
                         Button(
                           text: "C",
                           onClick: () {
-                            playSound();
                             type('', clear: true);
                           },
                         ),
@@ -160,7 +147,6 @@ class _MyCalculatorState extends State<MyCalculator> {
                         Button(
                           text: "1",
                           onClick: () {
-                            playSound();
                             type("1");
                           },
                         ),
@@ -312,14 +298,16 @@ class _MyCalculatorState extends State<MyCalculator> {
 
   void type(String txt, {clear = false}) {
     if (clear) {
-      _textFController.text = "";
+      _textFController.clear();
     } else {
       _textFController.text = _textFController.text + txt.toString();
+      Timer(Duration(milliseconds: 50), () {
+        _textFieldScrollController.animateTo(
+            _textFieldScrollController.position.maxScrollExtent,
+            duration: Duration(milliseconds: 50),
+            curve: Curves.ease);
+      });
     }
-  }
-
-  void playSound() async {
-    await pool.play(soundId);
   }
 
   _loadSound() async {
