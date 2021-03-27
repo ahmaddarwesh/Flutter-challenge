@@ -100,8 +100,12 @@ class _MyCalculatorState extends State<MyCalculator> {
             Expanded(
               flex: 4,
               child: Container(
-                padding:
-                    EdgeInsets.only(top: 20, right: 5, left: 5, bottom: 10),
+                padding: EdgeInsets.only(
+                  top: 100,
+                  right: 5,
+                  left: 5,
+                  bottom: 10,
+                ),
                 child: Column(
                   children: [
                     Row(
@@ -109,6 +113,7 @@ class _MyCalculatorState extends State<MyCalculator> {
                       children: [
                         Button(
                           text: "C",
+                          width: 128,
                           onClick: () {
                             type('', clear: true);
                           },
@@ -121,12 +126,6 @@ class _MyCalculatorState extends State<MyCalculator> {
                           },
                         ),
                         SizedBox(width: 3),
-                        Button(
-                          text: "3",
-                          onClick: () {
-                            type("3");
-                          },
-                        ),
                         SizedBox(width: 3),
                         Button(
                           text: "",

@@ -13,13 +13,13 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.0
-  flutter_neumorphic: ^3.0.3
-  get: ^3.24.0
+
+  flutter_neumorphic: ^3.1.0
+  get: ^4.1.1
   auto_size_text: ^2.1.0
   auto_size_text_field: ^0.1.7
   soundpool: ^1.1.3
-  flutter_vector_icons: ^0.2.1
+  flutter_vector_icons: ^1.0.0
 
 dev_dependencies:
   flutter_test:
